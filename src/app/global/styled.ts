@@ -11,7 +11,7 @@ const GlobalStyled = createGlobalStyle<ThemeProps<Theme>>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
-    background-color: ${({ theme }) => theme.primary};
+    background-color: ${({ theme }) => theme.white};
     
     @media screen and (max-width: ${breakpoints.md.max}) {
       font-size: 15px;

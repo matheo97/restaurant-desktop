@@ -1,27 +1,16 @@
-import React, { KeyboardEvent, useState } from 'react'
-import { SignInForm, SignInFormButtonContainer } from './SignIn.styled'
-import { useForm } from 'react-hook-form'
+import React from 'react'
 import { SignInRequestBody } from '../../services/auth-service'
 import { authActions } from '../../store/slices/auth'
-import { useAppDispatch, useAppState } from '../../store'
-import { APILoadingStatus } from '../../../types/api/api-loading-status'
 import { unwrapResult } from '@reduxjs/toolkit'
+import { Button, Checkbox, Form, Input, Tabs } from 'antd'
+import { useAppDispatch } from '../../store'
+import { SignInContainer, TabsWrapper } from './SignIn.styled'
 
-type Form = {
-  username: string
-  password: string
-}
-
-function SignInPage() {
+const SignInPage = () => {
   const dispatch = useAppDispatch()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Form>()
-  const { authStatus } = useAppState(state => state.auth)
-  const [hide, setHide] = useState<boolean>(true)
-  const onSubmit = handleSubmit((data: SignInRequestBody) => {
+  const [form] = Form.useForm()
+
+  const onFinish = (data: SignInRequestBody) => {
     dispatch(authActions.signIn(data))
       .then(unwrapResult)
       .then(data =>
@@ -34,43 +23,77 @@ function SignInPage() {
             dispatch(authActions.setIsLogged(true))
           })
           .catch(() => {
-            alert(`Couldn't get user info. Pls try again`)
+            alert(
+              `No fue posible encontrar al usuario. Por favor intentelo de nuevo mas tarde`
+            )
           })
       )
       .catch(() => {
-        alert(`Couldn't sign in. Pls try again`)
+        alert(`No fue posible ingresar. Por favor intentelo de nuevo mas tarde`)
       })
-  })
+  }
 
-  const toggleHide = () => setHide(!hide)
+  const onReset = () => {
+    form.resetFields()
+  }
 
   return (
-    <div>
-      <SignInForm>
-        <p>Sign in</p>
-        <p>Sign in to continue to our application.</p>
-        <input
-          placeholder={'Phone or Email'}
-          defaultValue=""
-          name="username"
-          {...register('username')}
-        />
-        <input
-          placeholder={'Password'}
-          defaultValue=""
-          name="password"
-          type={hide ? 'password' : 'text'}
-          {...register('password')}
-          onKeyUp={(evt: KeyboardEvent<HTMLInputElement>) =>
-            evt.key === 'Enter' && onSubmit()
-          }
-        />
-        <SignInFormButtonContainer>
-          <button onClick={onSubmit}>LOGIN</button>
-        </SignInFormButtonContainer>
-        <p>Version: 1.0.0</p>
-      </SignInForm>
-    </div>
+    <SignInContainer>
+      <TabsWrapper>
+        <Tabs defaultActiveKey="1" centered>
+          <Tabs.TabPane tab="Ingresar" key="1">
+            <Form
+              labelCol={{ span: 4 }}
+              wrapperCol={{ span: 20 }}
+              form={form}
+              name="sign-in"
+              onFinish={onFinish}
+            >
+              <Form.Item
+                name="username"
+                label="Email"
+                rules={[
+                  { required: true, message: 'Por favor ingrese su email' },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                label="Password"
+                rules={[
+                  { required: true, message: 'Por favor ingrese su password' },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                name="remember"
+                valuePropName="checked"
+                wrapperCol={{ offset: 4, span: 20 }}
+              >
+                <Checkbox>Recordarme</Checkbox>
+              </Form.Item>
+              <Form.Item wrapperCol={{ offset: 4, span: 20 }}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ marginRight: '10px' }}
+                >
+                  Ingresar
+                </Button>
+                <Button htmlType="button" onClick={onReset}>
+                  Limpiar Campos
+                </Button>
+              </Form.Item>
+            </Form>
+          </Tabs.TabPane>
+          <Tabs.TabPane tab="Registrarse" key="2">
+            <p>Contactanos</p>
+          </Tabs.TabPane>
+        </Tabs>
+      </TabsWrapper>
+    </SignInContainer>
   )
 }
 
