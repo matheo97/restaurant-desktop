@@ -33,7 +33,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "VIP",
+            "name": "restaurant-desktop",
             "setupIcon": "src/assets/icons/win/icon.ico"
           }
         }
@@ -109,7 +109,9 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@ant-design/colors": "^6.0.0",
     "@reduxjs/toolkit": "^1.6.0",
+    "antd": "^4.19.3",
     "axios": "^0.21.1",
     "copy-webpack-plugin": "^9.0.1",
     "dotenv": "^10.0.0",

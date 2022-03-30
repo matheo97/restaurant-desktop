@@ -10,7 +10,7 @@ instance.interceptors.response.use(
   async error => {
     console.log({ error })
     const { message: defaultMessage, response } = error
-    let message = 'Something went wrong'
+    let message = 'Algo anda mal'
     if (response && response.data) {
       message = response.data.message || response.data.error || defaultMessage
       if (Array.isArray(message)) {

@@ -6,8 +6,10 @@ import { persistor, store } from './store'
 import { Provider as StoreProvider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ScreenClassProvider, setConfiguration } from 'react-grid-system'
-
 import Routes from './modules/Routes'
+import './index.css'
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from './global/theme'
 
 setConfiguration({
   gridColumns: 16,
@@ -19,10 +21,12 @@ function render() {
       <HashRouter>
         <StoreProvider store={store}>
           <PersistGate persistor={persistor} loading={null}>
-            <GlobalStyled />
-            <Switch>
-              <Routes />
-            </Switch>
+            <ThemeProvider theme={defaultTheme}>
+              <GlobalStyled />
+              <Switch>
+                <Routes />
+              </Switch>
+            </ThemeProvider>
           </PersistGate>
         </StoreProvider>
       </HashRouter>

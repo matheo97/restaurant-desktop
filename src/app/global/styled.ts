@@ -1,7 +1,8 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle, ThemeProps } from 'styled-components'
 import { breakpoints } from '../constants/layout'
+import { Theme } from './theme'
 
-const GlobalStyled = createGlobalStyle`
+const GlobalStyled = createGlobalStyle<ThemeProps<Theme>>`
   body {
     margin: 0;
     font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
@@ -10,14 +11,12 @@ const GlobalStyled = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
-    background-color: white;
+    background-color: ${({ theme }) => theme.primary};
     
-    //MD
     @media screen and (max-width: ${breakpoints.md.max}) {
       font-size: 15px;
     }
     
-    //XS
     @media screen and (max-width: ${breakpoints.xs.max}) {
       font-size: 14px;
     }

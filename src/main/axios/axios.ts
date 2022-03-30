@@ -26,9 +26,8 @@ class AxiosManager {
       }
     )
   }
-  
+
   setToken(token: string) {
-    console.log({ token })
     this.instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
   }
 }

@@ -9,8 +9,6 @@ export class AuthService {
   private url = '/auth'
 
   signIn = async (values: SignInRequestBody): Promise<SignInResponseBody> => {
-    console.log('values', values)
-
     try {
       const { data } = await axios.post<SignInResponseBody>(
         `${this.url}/login`,
@@ -29,14 +27,12 @@ export class AuthService {
     let data: MeResponseBody | null = null
     try {
       if (token) {
-        console.log('token', token)
         axios.defaults.headers.common['Authorization'] = token
         const res = await axios.get<MeResponseBody>(`${this.url}/profile`, {
           headers: { Authorization: token },
         })
         data = res.data
       } else {
-        console.log('no token')
         const res = await axios.get<MeResponseBody>(`${this.url}/profile`)
         data = res.data
       }

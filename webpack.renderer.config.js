@@ -3,7 +3,7 @@ const plugins = require('./webpack.plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 rules.push({
-  test: /\.css$/,
+  test: /\.(scss|css|less)$/,
   use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
 })
 
