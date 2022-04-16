@@ -1,17 +1,27 @@
 import React, { useCallback } from 'react'
 import { Layout, Menu } from 'antd'
-import { PieChartOutlined, UserOutlined } from '@ant-design/icons'
+import {
+  LogoutOutlined,
+  PieChartOutlined,
+  UserOutlined,
+} from '@ant-design/icons'
 import { useHistory } from 'react-router-dom'
 import { pages, Pages } from '../../screens/pages'
 import { SidebarProps } from './Sidebar.props'
+import { useAppDispatch } from '../../store'
 import './style.css'
 
 const { Sider, Content, Footer, Header } = Layout
 
 const Sidebar = ({ children }: SidebarProps) => {
   const history = useHistory()
+  const dispatch = useAppDispatch()
 
   const handleClick = useCallback((path: string) => history.push(path), [])
+
+  const handleLogOut = useCallback(() => {
+    dispatch({ type: 'LOG_OUT' })
+  }, [])
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -30,6 +40,13 @@ const Sidebar = ({ children }: SidebarProps) => {
             onClick={() => handleClick(pages[Pages.Customer].path)}
           >
             Clientes
+          </Menu.Item>
+          <Menu.Item
+            key="3"
+            icon={<LogoutOutlined />}
+            onClick={() => handleLogOut()}
+          >
+            Cerrar Sesion
           </Menu.Item>
         </Menu>
       </Sider>
