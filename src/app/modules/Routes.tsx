@@ -3,16 +3,12 @@ import useAppInit from '../hooks/use-app-init'
 import AppModule from './App'
 import { Route, Switch } from 'react-router-dom'
 import AuthModule from './Auth'
+import { PageLoader } from '../components/PageLoader'
 
 function Routes() {
   const { loading } = useAppInit()
   return loading ? (
-    // <Flex align="center" justify="center" style={{ height: '100vh' }}>
-    //   <Spinner size="large" />
-    // </Flex>
-    <div>
-      loading!
-    </div>
+    <PageLoader />
   ) : (
     <Switch>
       <Route path="/auth" component={AuthModule} />

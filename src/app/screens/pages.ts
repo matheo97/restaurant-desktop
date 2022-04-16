@@ -3,6 +3,7 @@ import { UserRole } from 'types/api/user-role'
 
 export enum Pages {
   Home = 'Home',
+  Customer = 'Customer',
   SignIn = 'SignIn',
   ForbiddenAccess = 'ForbiddenAccess',
 }
@@ -20,6 +21,11 @@ export const pages: Record<Pages, Page> = {
     path: '/',
     url: () => '/',
     title: 'Home',
+  },
+  [Pages.Customer]: {
+    path: '/customer',
+    url: () => '/customer',
+    title: 'Customer',
   },
   [Pages.SignIn]: {
     path: '/auth/sign-in',

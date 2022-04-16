@@ -110,8 +110,9 @@
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
+    "@ant-design/icons": "^4.7.0",
     "@reduxjs/toolkit": "^1.6.0",
-    "antd": "^4.19.3",
+    "antd": "^4.19.5",
     "axios": "^0.21.1",
     "copy-webpack-plugin": "^9.0.1",
     "dotenv": "^10.0.0",
