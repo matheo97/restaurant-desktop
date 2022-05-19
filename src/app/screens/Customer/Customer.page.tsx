@@ -21,6 +21,7 @@ import { customersActions } from '../../store/slices/customer'
 import { APILoadingStatus } from '../../types/api-loading-status'
 import { CustomerOrderBy } from '../../types/customer-order-by'
 import CustomerModal from './Customer.modal'
+import { CustomerContainer, CustomerHeader } from './Customer.styled'
 
 const { Search } = Input
 
@@ -106,12 +107,12 @@ const CustomerPage = () => {
   ]
 
   return (
-    <div>
-      <div>
+    <CustomerContainer>
+      <CustomerHeader>
         <Search
-          placeholder="input search text"
+          placeholder="Informacion de Cliente"
           allowClear
-          enterButton="Search"
+          enterButton="Buscar"
           size="large"
           onSearch={(value: string) => setSearch(value)}
           loading={customersStatus === APILoadingStatus.Loading}
@@ -119,11 +120,12 @@ const CustomerPage = () => {
         <Button
           type="primary"
           icon={<PlusCircleOutlined />}
+          size="large"
           onClick={() => setModalVisible(true)}
         >
-          Crear Customer
+          Crear Cliente
         </Button>
-      </div>
+      </CustomerHeader>
       <Table
         loading={customersStatus === APILoadingStatus.Loading}
         dataSource={customers}
@@ -135,6 +137,11 @@ const CustomerPage = () => {
         total={customersTotal}
         current={page}
         pageSize={pageSize}
+        style={{
+          position: 'absolute',
+          bottom: '5px',
+          left: '5px',
+        }}
       />
       <CustomerModal
         visible={modalVisible}
@@ -142,7 +149,7 @@ const CustomerPage = () => {
         customer={selectedCustomer}
         handleFind={handleFind}
       />
-    </div>
+    </CustomerContainer>
   )
 }
 

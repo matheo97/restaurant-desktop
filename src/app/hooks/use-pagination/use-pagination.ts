@@ -6,7 +6,7 @@ function usePagination<OrderBy = string, Params = Record<string, unknown>>(
   callback: (params: PaginationQuery<OrderBy>, otherParams?: Params) => void,
   initialParams: PaginationQuery<OrderBy> = {}
 ) {
-  const pageSize = initialParams.pageSize || 25
+  const pageSize = initialParams.pageSize || 10
   const [params, setParams] = useState<Params>()
   const [page, setPage] = useState(initialParams.page || 1)
   const [order, setOrder] = useState<SortOrder | undefined>(
