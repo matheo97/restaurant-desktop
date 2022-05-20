@@ -61,7 +61,12 @@ const Sidebar = ({ children }: SidebarProps) => {
         >
           <div
             className="site-layout-background"
-            style={{ padding: 24, minHeight: 360 }}
+            style={{
+              padding: 24,
+              minHeight: 360,
+              height: '100%',
+              width: '100%',
+            }}
           >
             {children}
           </div>
