@@ -13,7 +13,7 @@ import {
   Space,
   Table,
 } from 'antd'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Customer } from '../../../models'
 import usePagination from '../../hooks/use-pagination'
 import { useAppDispatch, useAppState } from '../../store'
@@ -50,61 +50,64 @@ const CustomerPage = () => {
     setSelectedCustomer(undefined)
   }, [setModalVisible, setSelectedCustomer])
 
-  const customerTableColumns = [
-    {
-      title: 'Nombre',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Apellido',
-      dataIndex: 'lastName',
-      key: 'lastName',
-    },
-    {
-      title: 'Telefono',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: 'Direccion',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (_text: string, record: Customer) => (
-        <Space size="middle">
-          <EditOutlined onClick={() => handleOpenEditModal(record)} />
-          <Popconfirm
-            title="Esta seguro que desea borrar este cliente?"
-            okText="Si"
-            cancelText="No"
-            onConfirm={() =>
-              dispatch(customersActions.deleteCustomer(record.id))
-                .then(unwrapResult)
-                .then(() => {
-                  message.success('Usuario borrado con exito')
-                  handleFind()
-                })
-                .catch(err => {
-                  message.error('Hubo un problema. Usuario no borrado')
-                  console.error(err)
-                })
-            }
-          >
-            <DeleteOutlined />
-          </Popconfirm>
-        </Space>
-      ),
-    },
-  ]
+  const customerTableColumns = useMemo(
+    () => [
+      {
+        title: 'Nombre',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: 'Apellido',
+        dataIndex: 'lastName',
+        key: 'lastName',
+      },
+      {
+        title: 'Telefono',
+        dataIndex: 'phone',
+        key: 'phone',
+      },
+      {
+        title: 'Direccion',
+        dataIndex: 'address',
+        key: 'address',
+      },
+      {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: (_text: string, record: Customer) => (
+          <Space size="middle">
+            <EditOutlined onClick={() => handleOpenEditModal(record)} />
+            <Popconfirm
+              title="Esta seguro que desea borrar este cliente?"
+              okText="Si"
+              cancelText="No"
+              onConfirm={() =>
+                dispatch(customersActions.deleteCustomer(record.id))
+                  .then(unwrapResult)
+                  .then(() => {
+                    message.success('Usuario borrado con exito')
+                    handleFind()
+                  })
+                  .catch(err => {
+                    message.error('Hubo un problema. Usuario no borrado')
+                    console.error(err)
+                  })
+              }
+            >
+              <DeleteOutlined />
+            </Popconfirm>
+          </Space>
+        ),
+      },
+    ],
+    []
+  )
 
   return (
     <CustomerContainer>
@@ -118,7 +121,7 @@ const CustomerPage = () => {
           loading={customersStatus === APILoadingStatus.Loading}
         />
         <Button
-          type="primary"
+          type="ghost"
           icon={<PlusCircleOutlined />}
           size="large"
           onClick={() => setModalVisible(true)}
@@ -131,6 +134,7 @@ const CustomerPage = () => {
         dataSource={customers}
         columns={customerTableColumns}
         pagination={false}
+        rowKey="id"
       />
       <Pagination
         onChange={setPage}

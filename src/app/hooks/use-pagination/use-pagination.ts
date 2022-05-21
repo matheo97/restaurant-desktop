@@ -41,10 +41,10 @@ function usePagination<OrderBy = string, Params = Record<string, unknown>>(
 
   useEffect(() => {
     callback({
-      page,
+      page: search ? 1 : page,
       order,
       orderBy,
-      pageSize,
+      pageSize: search ? 50 : pageSize,
       query: search,
       ...params,
     })

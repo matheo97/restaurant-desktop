@@ -11,15 +11,9 @@ interface Props {
   customer?: Customer
 }
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 20 },
 }
 
 const CustomerModal = ({
@@ -36,12 +30,13 @@ const CustomerModal = ({
       if (customer) {
         dispatch(customersActions.update({ ...formFields, id: customer.id }))
           .then(unwrapResult)
-          .then(() =>
+          .then(() => {
+            handleFind()
             notification['success']({
               message: 'Exito!',
               description: 'Cliente actualizado correctamente',
             })
-          )
+          })
           .catch(e => {
             notification['error']({
               message: 'Ha ocurrido un error',
@@ -52,6 +47,7 @@ const CustomerModal = ({
         dispatch(customersActions.create(formFields))
           .then(unwrapResult)
           .then(() => {
+            handleFind()
             notification['success']({
               message: 'Exito!',
               description: 'Cliente creado correctamente',
@@ -72,7 +68,6 @@ const CustomerModal = ({
         address: undefined,
       })
       handleCancel()
-      handleFind()
     },
     [handleCancel, handleFind, customer]
   )
@@ -91,7 +86,6 @@ const CustomerModal = ({
 
   return (
     <Modal
-      {...formItemLayout}
       title={`${customer ? 'Actualizar' : 'Crear'} Cliente`}
       visible={visible}
       onCancel={handleCancel}
@@ -105,6 +99,7 @@ const CustomerModal = ({
       ]}
     >
       <Form
+        {...layout}
         form={form}
         name="customer"
         onFinish={handleCreate}
@@ -134,6 +129,10 @@ const CustomerModal = ({
             {
               required: true,
               message: 'Por favor ingrese el numero de telefono',
+            },
+            {
+              max: 10,
+              message: 'El numero de telefono debe tener maximo 10 caracteres',
             },
           ]}
         >
