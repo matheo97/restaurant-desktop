@@ -8,7 +8,9 @@ function SidebarNavbarTemplate({
 }: SidebarNavbarTemplateProps) {
   return (
     <Sidebar>
-      <div {...props}>{children}</div>
+      <div style={{ height: '100%', width: '100%' }} {...props}>
+        {children}
+      </div>
     </Sidebar>
   )
 }

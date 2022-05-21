@@ -11,11 +11,13 @@ import storage from 'redux-persist/lib/storage'
 import { createLogger } from 'redux-logger'
 import { PERSIST_TIMEOUT, CACHE_VERSION, PERSIST_KEY } from '../constants/store'
 import auth from './slices/auth'
+import customer from './slices/customer'
 
 export const isProduction = process.env.NODE_ENV === 'production'
 
 const appReducer = combineReducers({
   auth,
+  customer,
 })
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
