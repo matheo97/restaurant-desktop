@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import { Layout, Menu } from 'antd'
 import {
+  ContainerOutlined,
   LogoutOutlined,
   PieChartOutlined,
   UserOutlined,
@@ -43,7 +44,7 @@ const Sidebar = ({ children }: SidebarProps) => {
           </Menu.Item>
           <Menu.Item
             key="3"
-            icon={<UserOutlined />}
+            icon={<ContainerOutlined />}
             onClick={() => handleClick(pages[Pages.Item].path)}
           >
             Productos
