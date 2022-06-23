@@ -1,3 +1,5 @@
 export * from './company.model'
 export * from './user.model'
 export * from './customer.model'
+export * from './item.model'
+export * from './order.model'

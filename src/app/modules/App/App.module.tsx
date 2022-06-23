@@ -6,6 +6,7 @@ import { PrivateRoute, Switch } from '../../components/Route'
 import SidebarNavbarTemplate from '../../templates/SidebarNavbarTemplate'
 import DashboardPage from '../../screens/Dashboard'
 import CustomerPage from '../../screens/Customer'
+import ItemPage from '../../screens/Item'
 
 function AppModule() {
   return (
@@ -16,6 +17,9 @@ function AppModule() {
         </PrivateRoute>
         <PrivateRoute page={pages.Customer} exact>
           <CustomerPage />
+        </PrivateRoute>
+        <PrivateRoute page={pages.Item} exact>
+          <ItemPage />
         </PrivateRoute>
         <Route exact path={pages.ForbiddenAccess.path}>
           <ForbiddenAccessScreen />
